@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Level 02 // Unsichtbare Tinte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<canvas id="matrixRain"></canvas>
+
+<div class="wrap">
+  <p class="eyebrow">LEVEL 02 // TARNUNG</p>
+  <h1 class="glitch" data-text="UNSICHTBARE TINTE">UNSICHTBARE TINTE</h1>
+  <p class="lead">Diesmal steht der Code tatsächlich auf der Seite. Wortwörtlich. Du kannst ihn nur nicht sehen — mit den Augen zumindest.</p>
+
+  <div class="progress-track">
+    <span class="filled"></span><span class="filled"></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="panel">
+    <div class="terminal-line"><span class="prompt">system@zion:~$</span> scan --visible</div>
+    <div class="terminal-line" style="color:#3a5a45;">Protokoll wird geladen ...</div>
+    <p style="margin:14px 0;">Zugriffsprotokoll vom letzten Systemneustart. Ein Techniker hat hier scheinbar eine Notiz hinterlassen, die vom Anzeigesystem gefiltert wird.</p>
+    <p class="ghost">CODE: MORPHEUS</p>
+    <p style="margin:14px 0; color:#3a5a45;">[Ende des Protokolls]</p>
+
+    <div class="field">
+      <label for="codeInput">Zugangscode</label>
+      <input type="text" id="codeInput" autocomplete="off" placeholder="••••••••" spellcheck="false">
+    </div>
+    <button type="button" class="btn" id="submitBtn">Entsperren →</button>
+    <p class="msg" id="msg"></p>
+
+    <p class="hint-toggle" id="hintToggle">Hinweis anzeigen</p>
+    <p class="hint-body" id="hintBody">Text kann exakt die Farbe des Hintergrunds haben — für dein Auge unsichtbar, im Quelltext aber trotzdem da. Öffne den Seitenquelltext, oder markiere den Bereich zwischen den beiden Trennzeilen mit gedrückter Maustaste (Strg+A funktioniert auch).</p>
+  </div>
+
+  <a href="../" class="back-link">← zurück zur Übersicht</a>
+</div>
+
+<footer class="foot">// Level 2 von 5</footer>
+
+<script src="../script.js"></script>
+<script>
+  if (getUnlockedLevel() < 2) window.location.href = '../level1/';
+
+  const CODE = 'MORPHEUS';
+  const input = document.getElementById('codeInput');
+  const msg = document.getElementById('msg');
+
+  document.getElementById('submitBtn').addEventListener('click', attempt);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+
+  function attempt() {
+    checkCodeInput(input, CODE, () => {
+      unlockLevel(3);
+      setTimeout(() => { window.location.href = '../level3/'; }, 900);
+    }, msg);
+  }
+
+  document.getElementById('hintToggle').addEventListener('click', () => {
+    document.getElementById('hintBody').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

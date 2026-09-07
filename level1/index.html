@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Level 01 // Der Riss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<canvas id="matrixRain"></canvas>
+
+<div class="wrap">
+  <p class="eyebrow">LEVEL 01 // EINSTIEG</p>
+  <h1 class="glitch" data-text="DER RISS">DER RISS</h1>
+  <p class="lead">Auf dieser Seite steht der Zugangscode nirgendwo, den du lesen kannst. Zumindest nicht dort, wo du normalerweise hinschaust.</p>
+
+  <div class="progress-track">
+    <span class="filled"></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Zugangscode: TRINITY -->
+
+  <div class="panel">
+    <div class="terminal-line"><span class="prompt">system@zion:~$</span> cat access.lock</div>
+    <div class="terminal-line" style="color:#3a5a45;">-- ZUGRIFF VERWEIGERT --</div>
+
+    <div class="field">
+      <label for="codeInput">Zugangscode</label>
+      <input type="text" id="codeInput" autocomplete="off" placeholder="••••••••" spellcheck="false">
+    </div>
+    <button type="button" class="btn" id="submitBtn">Entsperren →</button>
+    <p class="msg" id="msg"></p>
+
+    <p class="hint-toggle" id="hintToggle">Hinweis anzeigen</p>
+    <p class="hint-body" id="hintBody">Jede Website besteht aus mehr, als der Browser dir zeigt. Rechtsklick → „Seitenquelltext anzeigen" (oder Strg+U). Lies die Datei von oben bis unten. Nicht alles, was geschrieben steht, wird auch angezeigt.</p>
+  </div>
+
+  <a href="../" class="back-link">← zurück zur Übersicht</a>
+</div>
+
+<footer class="foot">// Level 1 von 5</footer>
+
+<script src="../script.js"></script>
+<script>
+  const CODE = 'TRINITY';
+  const input = document.getElementById('codeInput');
+  const msg = document.getElementById('msg');
+
+  document.getElementById('submitBtn').addEventListener('click', attempt);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+
+  function attempt() {
+    checkCodeInput(input, CODE, () => {
+      unlockLevel(2);
+      setTimeout(() => { window.location.href = '../level2/'; }, 900);
+    }, msg);
+  }
+
+  document.getElementById('hintToggle').addEventListener('click', () => {
+    document.getElementById('hintBody').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

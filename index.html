@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>root@zion:~$</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="matrixRain"></canvas>
+
+<div class="wrap">
+  <p class="eyebrow">SYSTEMZUGANG // GESICHERT</p>
+  <h1 class="glitch" data-text="WAKE UP, NEO.">WAKE UP, <span class="secret">NEO</span>.</h1>
+  <p class="lead">Fünf Türen. Fünf Rätsel. Die Antworten liegen nie auf der Seite selbst — sie liegen in dem, was sie erzeugt hat. Öffne die Werkzeugkiste deines Browsers (F12) und lies mit.</p>
+
+  <div id="bootLog" class="boot-log"></div>
+
+  <div class="panel">
+    <div class="terminal-line"><span class="prompt">guest@zion:~$</span> ls -la /levels<span class="cursor"></span></div>
+    <ul class="level-list" id="levelList"></ul>
+  </div>
+
+  <p style="margin-top:28px; font-size:.8rem; color:#3a5a45;">Tipp: Rechtsklick → „Seitenquelltext anzeigen" ist dein bester Freund. Die Konsole dein zweiter.</p>
+</div>
+
+<footer class="foot">// kein Server, keine Datenbank, keine Ausreden — alles liegt im Client.</footer>
+
+<script src="script.js"></script>
+<script>
+  const LEVELS = [
+    { n: 1, name: 'Der Riss', path: 'level1/' },
+    { n: 2, name: 'Unsichtbare Tinte', path: 'level2/' },
+    { n: 3, name: 'Verschlüsselte Flüster', path: 'level3/' },
+    { n: 4, name: 'Das Chiffreschloss', path: 'level4/' },
+    { n: 5, name: 'Das letzte Tor', path: 'level5/' }
+  ];
+
+  function renderLevels() {
+    const unlocked = getUnlockedLevel();
+    const list = document.getElementById('levelList');
+    list.innerHTML = LEVELS.map(lvl => {
+      const isLocked = lvl.n > unlocked;
+      const isDone = lvl.n < unlocked;
+      const status = isLocked ? 'GESPERRT' : (isDone ? 'GELÖST' : 'BEREIT');
+      const tag = isLocked ? 'span' : 'a';
+      const href = isLocked ? '' : ` href="${lvl.path}"`;
+      return `<li>
+        <${tag} class="level-row ${isLocked ? 'locked' : ''} ${isDone ? 'done' : ''}"${href}>
+          <span class="lvl-num">0${lvl.n}</span>
+          <span class="lvl-name">${lvl.name}</span>
+          <span class="lvl-status">${isLocked ? '🔒 ' + status : (isDone ? '✔ ' + status : '▶ ' + status)}</span>
+        </${tag}>
+      </li>`;
+    }).join('');
+  }
+
+  bootLog(document.getElementById('bootLog'), [
+    '> Verbindung hergestellt ...',
+    '> Zugriff auf lokales Dateisystem ... OK',
+    '> 5 verschlüsselte Level gefunden.',
+    '> Bereit. Finde deinen Weg rein.'
+  ], 16).then(renderLevels);
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Level 04 // Das Chiffreschloss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<canvas id="matrixRain"></canvas>
+
+<div class="wrap">
+  <p class="eyebrow">LEVEL 04 // VERSCHLÜSSELUNG</p>
+  <h1 class="glitch" data-text="DAS CHIFFRESCHLOSS">DAS CHIFFRESCHLOSS</h1>
+  <p class="lead">Dieses Schloss zeigt dir sogar den verschlüsselten Code UND den Algorithmus, der ihn entschlüsselt. Es fehlt nur eine Zahl.</p>
+
+  <div class="progress-track">
+    <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span>
+  </div>
+
+  <div class="panel">
+    <div class="terminal-line"><span class="prompt">system@zion:~$</span> decrypt --show-cipher</div>
+    <div class="terminal-line" style="color:#3a5a45;">Chiffretext: <strong style="color:#00ff66;">WJIUNQQ</strong></div>
+    <div class="terminal-line" style="color:#3a5a45;">Algorithmus: Caesar-Verschiebung (siehe Quellcode: window.decodeShift)</div>
+
+    <div class="field">
+      <label for="codeInput">Zugangscode</label>
+      <input type="text" id="codeInput" autocomplete="off" placeholder="••••••••" spellcheck="false">
+    </div>
+    <button type="button" class="btn" id="submitBtn">Entsperren →</button>
+    <p class="msg" id="msg"></p>
+
+    <p class="hint-toggle" id="hintToggle">Hinweis anzeigen</p>
+    <p class="hint-body" id="hintBody">Im Quelltext ist eine Funktion <code>window.decodeShift(text, shift)</code> definiert, die jeden Buchstaben um <code>shift</code> Stellen im Alphabet zurückschiebt. Die Zahl selbst steht nicht direkt da — nur als Kommentar verschlüsselt: „Verschiebung = Position von E im Alphabet". Öffne die Konsole (F12 → Console) und ruf die Funktion mit dem Chiffretext und der richtigen Zahl auf.</p>
+  </div>
+
+  <a href="../" class="back-link">← zurück zur Übersicht</a>
+</div>
+
+<footer class="foot">// Level 4 von 5</footer>
+
+<script src="../script.js"></script>
+<script>
+  if (getUnlockedLevel() < 4) window.location.href = '../level3/';
+
+  // Verschiebung = Position von E im Alphabet
+  window.decodeShift = function (str, shift) {
+    return str.replace(/[a-zA-Z]/g, c => {
+      const base = c <= 'Z' ? 65 : 97;
+      return String.fromCharCode((c.charCodeAt(0) - base - shift + 26) % 26 + base);
+    });
+  };
+
+  const CODE = 'REDPILL';
+  const input = document.getElementById('codeInput');
+  const msg = document.getElementById('msg');
+
+  document.getElementById('submitBtn').addEventListener('click', attempt);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+
+  function attempt() {
+    checkCodeInput(input, CODE, () => {
+      unlockLevel(5);
+      setTimeout(() => { window.location.href = '../level5/'; }, 900);
+    }, msg);
+  }
+
+  document.getElementById('hintToggle').addEventListener('click', () => {
+    document.getElementById('hintBody').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

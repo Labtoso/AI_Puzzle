@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Level 05 // Das letzte Tor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<canvas id="matrixRain"></canvas>
+
+<div class="wrap">
+  <p class="eyebrow">LEVEL 05 // LETZTE PRÜFUNG</p>
+  <h1 class="glitch" data-text="DAS LETZTE TOR">DAS LETZTE TOR</h1>
+  <p class="lead">Kein Klartext. Kein Base64. Keine fertige Entschlüsselungsfunktion. Nur eine Prüfung, die vergleicht — und alles, was sie zum Vergleichen braucht, liegt offen im Code.</p>
+
+  <div class="progress-track">
+    <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span>
+  </div>
+
+  <div class="panel">
+    <div class="terminal-line"><span class="prompt">system@zion:~$</span> gatekeeper --status</div>
+    <div class="terminal-line" style="color:#3a5a45;">Zugriffsprüfung aktiv. Verschlüsselung: XOR.</div>
+
+    <div class="field">
+      <label for="codeInput">Zugangscode</label>
+      <input type="text" id="codeInput" autocomplete="off" placeholder="••••••••" spellcheck="false">
+    </div>
+    <button type="button" class="btn" id="submitBtn">Entsperren →</button>
+    <p class="msg" id="msg"></p>
+
+    <p class="hint-toggle" id="hintToggle">Hinweis anzeigen</p>
+    <p class="hint-body" id="hintBody">
+      Im Quelltext stehen zwei Arrays: <code>xorKey</code> und <code>xorTarget</code>. Die Prüfung nimmt deine Eingabe, wandelt jeden Buchstaben in seinen Zeichencode um und verrechnet ihn per XOR (<code>^</code>) mit dem sich wiederholenden Schlüssel — das Ergebnis muss exakt <code>xorTarget</code> ergeben. XOR ist umkehrbar: verrechnest du <code>xorTarget</code> nochmal mit demselben Schlüssel, bekommst du den Klartext zurück. Öffne die Konsole und probier es:<br><br>
+      <code>xorTarget.map((v,i)=>String.fromCharCode(v^xorKey[i%xorKey.length])).join('')</code>
+    </p>
+  </div>
+
+  <a href="../" class="back-link">← zurück zur Übersicht</a>
+</div>
+
+<footer class="foot">// Level 5 von 5</footer>
+
+<script src="../script.js"></script>
+<script>
+  if (getUnlockedLevel() < 5) window.location.href = '../level4/';
+
+  // Zugriffsschlüssel — wiederholt sich für jeden weiteren Buchstaben
+  window.xorKey = [7, 3, 9, 2, 5];
+  // Verschlüsselter Zielwert. XOR ist symmetrisch: target[i] ^ key[i % key.length] = klartext[i]
+  window.xorTarget = [83, 75, 76, 77, 75, 66];
+
+  function checkAccess(value) {
+    const enc = [...value].map((c, i) => c.charCodeAt(0) ^ xorKey[i % xorKey.length]);
+    return enc.length === xorTarget.length && enc.every((v, i) => v === xorTarget[i]);
+  }
+
+  const input = document.getElementById('codeInput');
+  const msg = document.getElementById('msg');
+
+  document.getElementById('submitBtn').addEventListener('click', attempt);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+
+  function attempt() {
+    const value = normalizeCode(input.value);
+    if (checkAccess(value)) {
+      msg.textContent = 'ZUGANG GEWÄHRT. Willkommen, Neo.';
+      msg.className = 'msg ok';
+      unlockLevel(6);
+      setTimeout(() => { window.location.href = '../success.html'; }, 1100);
+    } else {
+      msg.textContent = 'FALSCHER CODE. Die Prüfung schlägt fehl.';
+      msg.className = 'msg error';
+      input.classList.remove('shake');
+      void input.offsetWidth;
+      input.classList.add('shake');
+    }
+  }
+
+  document.getElementById('hintToggle').addEventListener('click', () => {
+    document.getElementById('hintBody').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

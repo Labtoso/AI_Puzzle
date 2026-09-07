@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Zugang gewährt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="matrixRain"></canvas>
+
+<div class="wrap">
+  <p class="eyebrow">ZUGRIFF VOLLSTÄNDIG</p>
+  <h1 class="glitch" data-text="DU BIST THE ONE.">DU BIST THE ONE.</h1>
+  <p class="lead">Fünf Tore, fünf Techniken: Kommentare, versteckter Text, Base64, Caesar-Verschiebung, XOR. Du hast nichts geraten — du hast gelesen, was wirklich da war.</p>
+
+  <div class="progress-track">
+    <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span>
+  </div>
+
+  <div class="panel">
+    <div class="terminal-line"><span class="prompt">system@zion:~$</span> whoami<span class="cursor"></span></div>
+    <div class="terminal-line" style="color:#00ff66; margin-top:6px;">neo — access_level: root</div>
+    <div class="terminal-line" style="color:#3a5a45; margin-top:18px;">Abschlusscode (zum Vorzeigen):</div>
+    <div class="terminal-line" id="flagLine" style="color:#00ff66; font-size:1.3rem; letter-spacing:.1em; margin-top:6px;"></div>
+  </div>
+
+  <p style="margin-top:24px;">
+    <a href="index.html" class="btn" id="resetBtn">Nochmal von vorn</a>
+  </p>
+  <a href="index.html" class="back-link">← zurück zur Übersicht</a>
+</div>
+
+<footer class="foot">// gehackt mit Kaffee, keiner Magie.</footer>
+
+<script src="script.js"></script>
+<script>
+  if (getUnlockedLevel() < 6) window.location.href = 'index.html';
+
+  document.getElementById('flagLine').textContent = 'RAETSEL{THE_ONE_' + new Date().getFullYear() + '}';
+
+  document.getElementById('resetBtn').addEventListener('click', e => {
+    e.preventDefault();
+    try { localStorage.removeItem('raetsel_unlocked'); } catch (err) {}
+    window.location.href = 'index.html';
+  });
+</script>
+</body>
+</html>
