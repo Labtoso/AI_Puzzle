@@ -20,7 +20,7 @@
   <p class="lead">Kein Klartext. Kein Base64. Keine fertige Entschlüsselungsfunktion. Nur eine Prüfung, die vergleicht — und alles, was sie zum Vergleichen braucht, liegt offen im Code.</p>
 
   <div class="progress-track">
-    <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span>
+    <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span><span></span>
   </div>
 
   <div class="panel">
@@ -44,7 +44,7 @@
   <a href="../" class="back-link">← zurück zur Übersicht</a>
 </div>
 
-<footer class="foot">// Level 5 von 5</footer>
+<footer class="foot">// Level 5 von 8</footer>
 
 <script src="../script.js"></script>
 <script>
@@ -72,7 +72,7 @@
       msg.textContent = 'ZUGANG GEWÄHRT. Willkommen, Neo.';
       msg.className = 'msg ok';
       unlockLevel(6);
-      setTimeout(() => { window.location.href = '../success.html'; }, 1100);
+      setTimeout(() => { window.location.href = '../index.html'; }, 1100);
     } else {
       msg.textContent = 'FALSCHER CODE. Die Prüfung schlägt fehl.';
       msg.className = 'msg error';

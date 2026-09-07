@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Level 03 // Verschlüsselte Flüster</title>
+<title>Level 08 // Metadaten</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -15,17 +15,20 @@
 <canvas id="matrixRain"></canvas>
 
 <div class="wrap">
-  <p class="eyebrow">LEVEL 03 // ABHÖRUNG</p>
-  <h1 class="glitch" data-text="VERSCHLÜSSELTE FLÜSTER">VERSCHLÜSSELTE FLÜSTER</h1>
-  <p class="lead">Diese Seite lädt eine weitere Datei nach — sie tut selbst nichts damit. Der Code steckt dort drin, aber nicht im Klartext.</p>
+  <p class="eyebrow">KAPITEL 02 // LETZTE STUFE — LEVEL 08</p>
+  <h1 class="glitch" data-text="METADATEN">METADATEN</h1>
+  <p class="lead">Eine kurze Tonaufnahme. Der Ton selbst sagt dir nichts. Was drumherum über sie gespeichert ist, vielleicht schon.</p>
 
   <div class="progress-track">
-    <span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span><span></span><span></span><span></span>
+    <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span>
   </div>
 
   <div class="panel">
-    <div class="terminal-line"><span class="prompt">system@zion:~$</span> netstat --intercepts</div>
-    <div class="terminal-line" style="color:#3a5a45;">1 abgefangene Übertragung auf Kanal 7. Kodierung unbekannt.</div>
+    <div class="terminal-line"><span class="prompt">system@zion:~$</span> ls -la aufnahme.wav</div>
+    <div class="terminal-line" style="color:#3a5a45;">Letzte Stufe. Kein Klartext auf dieser Seite.</div>
+    <p style="margin:16px 0;">
+      <a href="aufnahme.wav" download class="btn">aufnahme.wav herunterladen ↓</a>
+    </p>
 
     <div class="field">
       <label for="codeInput">Zugangscode</label>
@@ -35,20 +38,19 @@
     <p class="msg" id="msg"></p>
 
     <p class="hint-toggle" id="hintToggle">Hinweis anzeigen</p>
-    <p class="hint-body" id="hintBody">Im Seitenquelltext findest du ein &lt;script src="secret.js"&gt;. Öffne diese Datei direkt (URL in der Adressleiste ergänzen, oder im Tab „Quellen"/„Sources" der Entwicklertools). Die Zeichenkette darin ist Base64 — die Browser-Konsole kann das mit <code>atob("...")</code> für dich entschlüsseln.</p>
+    <p class="hint-body" id="hintBody">Dateien wissen oft mehr über sich selbst, als sie klingen lassen. Eigenschaften/Details ist ein Anfang.</p>
   </div>
 
   <a href="../" class="back-link">← zurück zur Übersicht</a>
 </div>
 
-<footer class="foot">// Level 3 von 8</footer>
+<footer class="foot">// Level 8 von 8</footer>
 
 <script src="../script.js"></script>
-<script src="secret.js"></script>
 <script>
-  if (getUnlockedLevel() < 3) window.location.href = '../level2/';
+  if (getUnlockedLevel() < 8) window.location.href = '../level7/';
 
-  const CODE = 'NEOWAKESUP';
+  const CODE = 'ZION';
   const input = document.getElementById('codeInput');
   const msg = document.getElementById('msg');
 
@@ -57,8 +59,8 @@
 
   function attempt() {
     checkCodeInput(input, CODE, () => {
-      unlockLevel(4);
-      setTimeout(() => { window.location.href = '../level4/'; }, 900);
+      unlockLevel(9);
+      setTimeout(() => { window.location.href = '../success.html'; }, 900);
     }, msg);
   }
 

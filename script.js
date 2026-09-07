@@ -94,7 +94,7 @@ function initMatrixRain() {
   window.addEventListener('resize', resize);
 
   let frameCount = 0;
-  const FRAME_SKIP = 5;
+  const FRAME_SKIP = 14;
   function draw() {
     frameCount++;
     if (frameCount % FRAME_SKIP === 0) {

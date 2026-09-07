@@ -17,13 +17,20 @@
 <div class="wrap">
   <p class="eyebrow">SYSTEMZUGANG // GESICHERT</p>
   <h1 class="glitch" data-text="WAKE UP, NEO.">WAKE UP, <span class="secret">NEO</span>.</h1>
-  <p class="lead">Fünf Türen. Fünf Rätsel. Die Antworten liegen nie auf der Seite selbst — sie liegen in dem, was sie erzeugt hat. Öffne die Werkzeugkiste deines Browsers (F12) und lies mit.</p>
+  <p class="lead">Acht Türen, zwei Kapitel. Die Antworten liegen nie auf der Seite selbst — sie liegen in dem, was sie erzeugt hat, oder in dem, was du herunterlädst. Öffne die Werkzeugkiste deines Browsers (F12) und lies mit.</p>
 
   <div id="bootLog" class="boot-log"></div>
 
   <div class="panel">
-    <div class="terminal-line"><span class="prompt">guest@zion:~$</span> ls -la /levels<span class="cursor"></span></div>
-    <ul class="level-list" id="levelList"></ul>
+    <div class="terminal-line"><span class="prompt">guest@zion:~$</span> ls -la /kapitel-1<span class="cursor"></span></div>
+    <p style="margin:10px 0 0; font-size:.78rem; color:#3a5a45;">Kapitel 01 — Der Quellcode</p>
+    <ul class="level-list" id="levelListCh1"></ul>
+  </div>
+
+  <div class="panel">
+    <div class="terminal-line"><span class="prompt">guest@zion:~$</span> ls -la /kapitel-2</div>
+    <p style="margin:10px 0 0; font-size:.78rem; color:#3a5a45;">Kapitel 02 — Was du herunterlädst</p>
+    <ul class="level-list" id="levelListCh2"></ul>
   </div>
 
   <p style="margin-top:28px; font-size:.8rem; color:#3a5a45;">Tipp: Rechtsklick → „Seitenquelltext anzeigen" ist dein bester Freund. Die Konsole dein zweiter.</p>
@@ -33,18 +40,21 @@
 
 <script src="script.js"></script>
 <script>
-  const LEVELS = [
+  const CHAPTER_1 = [
     { n: 1, name: 'Der Riss', path: 'level1/' },
     { n: 2, name: 'Unsichtbare Tinte', path: 'level2/' },
     { n: 3, name: 'Verschlüsselte Flüster', path: 'level3/' },
     { n: 4, name: 'Das Chiffreschloss', path: 'level4/' },
     { n: 5, name: 'Das letzte Tor', path: 'level5/' }
   ];
+  const CHAPTER_2 = [
+    { n: 6, name: 'Verstecktes Signal', path: 'level6/' },
+    { n: 7, name: 'Falscher Name', path: 'level7/' },
+    { n: 8, name: 'Metadaten', path: 'level8/' }
+  ];
 
-  function renderLevels() {
-    const unlocked = getUnlockedLevel();
-    const list = document.getElementById('levelList');
-    list.innerHTML = LEVELS.map(lvl => {
+  function renderLevelList(el, levels, unlocked) {
+    el.innerHTML = levels.map(lvl => {
       const isLocked = lvl.n > unlocked;
       const isDone = lvl.n < unlocked;
       const status = isLocked ? 'GESPERRT' : (isDone ? 'GELÖST' : 'BEREIT');
@@ -60,10 +70,16 @@
     }).join('');
   }
 
+  function renderLevels() {
+    const unlocked = getUnlockedLevel();
+    renderLevelList(document.getElementById('levelListCh1'), CHAPTER_1, unlocked);
+    renderLevelList(document.getElementById('levelListCh2'), CHAPTER_2, unlocked);
+  }
+
   bootLog(document.getElementById('bootLog'), [
     '> Verbindung hergestellt ...',
     '> Zugriff auf lokales Dateisystem ... OK',
-    '> 5 verschlüsselte Level gefunden.',
+    '> 8 verschlüsselte Level in 2 Kapiteln gefunden.',
     '> Bereit. Finde deinen Weg rein.'
   ], 16).then(renderLevels);
 </script>
